@@ -41,6 +41,7 @@ public class NBody {
 
         /** STEP 1 prevent flickering in the animation */
         StdDraw.enableDoubleBuffering();
+        StdAudio.play("audio/2001.mid");
 
         /** STEP 2 create time variable and set the loop */
         double time = 0;
@@ -75,10 +76,11 @@ public class NBody {
             time += dt;
         }
 
+        /** print out the information, answer provided by teacher. */
         StdOut.printf("%d\n", planets.length);
         StdOut.printf("%.2e\n", radius);
         for (int i = 0; i < planets.length; i++){
-            StdOut.printf("%11.4e %11.4e %11.4e %11.4e %12s\n", planets[i].xxPos, planets[i].yyPos, planets[i].xxVel, planets[i].yyVel, planets[i].mass, planets[i].imgFileName);
+            StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n", planets[i].xxPos, planets[i].yyPos, planets[i].xxVel, planets[i].yyVel, planets[i].mass, planets[i].imgFileName);
         }
 
     }
