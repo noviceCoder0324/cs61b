@@ -82,7 +82,21 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if (A == null){
+            return B;
+        }else {
+            A.rest = dcatenate(A.rest, B);
+            return A;
+        }
+    }
+    /** This is the iterative way of doing the dcatenate for 2 lists, same func as above*/
+    public static IntList dcatenateIter(IntList A, IntList B){
+        IntList temp = A;
+        while (temp.rest != null){
+            temp = temp.rest;
+        }
+        temp.rest = B;
+        return A;
     }
 
     /**
@@ -91,9 +105,30 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        if (A == null) {
+            return B;
+        } else {
+            IntList rest = catenate(A.rest, B);
+            IntList L = new IntList(A.first, rest);
+            return L;
+        }
     }
-
+    /** this is the iterative way to do catenate, same func as above*/
+    public static IntList catenateIter(IntList A, IntList B) {
+        if (A == null){
+           return B;
+        }
+        IntList L = new IntList(A.first, null);
+        IntList res = L;
+        A = A.rest;
+        while (A != null){
+            res.rest = new IntList(A.first, null);
+            A = A.rest;
+            res = res.rest;
+        }
+        res.rest = B;
+        return L;
+    }
 
 
 
