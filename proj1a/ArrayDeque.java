@@ -159,12 +159,4 @@ public class ArrayDeque<T> {
         firstIndex = 0;
         lastIndex = size - 1;
     }
-
-    public static void main(String[] args){
-
-    }
-
-
-
-
 }

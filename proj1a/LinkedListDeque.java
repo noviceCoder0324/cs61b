@@ -56,21 +56,27 @@ public class LinkedListDeque <AnyType> {
     }
 
     /** remove an item at the beginning of the list*/
-    public void removeFirst() {
-        if (size > 0) {
-            this.sentinel.next = this.sentinel.next.next;
-            this.sentinel.next.prev = sentinel;
-            size -= 1;
+    public AnyType removeFirst() {
+        if (size == 0) {
+            return null;
         }
+        AnyType result = this.sentinel.next.item;
+        this.sentinel.next = this.sentinel.next.next;
+        this.sentinel.next.prev = sentinel;
+        size -= 1;
+        return result;
     }
 
     /** remove an item at the end of the list*/
-    public void removeLast() {
-        if (size > 0) {
-            sentinel.prev = sentinel.prev.prev;
-            sentinel.prev.next = sentinel;
-            size -= 1;
+    public AnyType removeLast() {
+        if (size == 0) {
+            return null;
         }
+        AnyType result = this.sentinel.prev.item;
+        sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
+        size -= 1;
+        return result;
     }
 
     /** get the item at index i */
