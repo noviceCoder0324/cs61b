@@ -128,31 +128,4 @@ public class LinkedListDeque <AnyType> {
     }
 
 
-
-    /** testing */
-    public static void main(String[] args){
-        LinkedListDeque<Integer> L = new LinkedListDeque<>(3);
-        L.addFirst(4);
-        L.addFirst(5);
-        L.removeFirst();
-        System.out.println(L.size());
-        System.out.println(L.get(1));
-        System.out.println(L.get_recur(1));
-
-        L.addLast(2);
-        System.out.println(L.size());
-        System.out.println(L.get(2));
-        System.out.println(L.get_recur(2));
-
-        L.printDeque();
-
-        LinkedListDeque<Integer> S = new LinkedListDeque<>();
-        S.addFirst(4);
-        S.addFirst(5);
-        S.removeFirst();
-        System.out.println(S.size());
-        System.out.println(S.get(0));
-        System.out.println(S.get_recur(0));
-    }
-
 }
