@@ -1,18 +1,22 @@
+import junit.framework.Test;
+
+import javax.swing.plaf.TabbedPaneUI;
+
 /** Project 1A Data Structures
  * This is Linked list based deque Implementation
  * Q 1 Linked List Deque:
  * I answer this question by checking gitbook chapter 2.3*/
-public class LinkedListDeque <AnyType> {
+public class LinkedListDeque <T> {
 
 
     /** Basic list structure*/
     private class Node {
         /** instance variable for every IntNode*/
         public Node prev;
-        public AnyType item;
+        public T item;
         public Node next;
         /** constructor*/
-        public Node(AnyType i, Node p, Node n) {
+        public Node(T i, Node p, Node n) {
             this.prev = p;
             this.item = i;
             this.next = n;
@@ -24,9 +28,9 @@ public class LinkedListDeque <AnyType> {
     private int size;
 
     /** Constructor */
-    public LinkedListDeque(AnyType x) {
+    public LinkedListDeque(T x) {
         /* why am I able to use null as the item for sentinel???*/
-        sentinel = new Node ((AnyType) null, null, null);
+        sentinel = new Node ((T) null, null, null);
         sentinel.next = new Node (x, sentinel, sentinel);
         sentinel.prev = sentinel.next;
         size = 1;
@@ -34,7 +38,7 @@ public class LinkedListDeque <AnyType> {
     public LinkedListDeque() {
         /* why do I need to define separately? why can't I put sentinel in
         * p and n as parameter directly???*/
-        sentinel = new Node ((AnyType) null, null, null);
+        sentinel = new Node ((T) null, null, null);
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
@@ -42,25 +46,25 @@ public class LinkedListDeque <AnyType> {
 
     /** Basic rules
      * add a new item at the beginning of the list*/
-    public void addFirst(AnyType x) {
+    public void addFirst(T x) {
         this.sentinel.next = new Node (x, sentinel, sentinel.next);
         this.sentinel.next.next.prev = this.sentinel.next;
         size += 1;
     }
 
     /** add a new item at the end of the list*/
-    public void addLast(AnyType x) {
+    public void addLast(T x) {
         sentinel.prev = new Node (x, sentinel.prev, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
         size += 1;
     }
 
     /** remove an item at the beginning of the list*/
-    public AnyType removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
-        AnyType result = this.sentinel.next.item;
+        T result = this.sentinel.next.item;
         this.sentinel.next = this.sentinel.next.next;
         this.sentinel.next.prev = sentinel;
         size -= 1;
@@ -68,11 +72,11 @@ public class LinkedListDeque <AnyType> {
     }
 
     /** remove an item at the end of the list*/
-    public AnyType removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         }
-        AnyType result = this.sentinel.prev.item;
+        T result = this.sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
         sentinel.prev.next = sentinel;
         size -= 1;
@@ -80,7 +84,7 @@ public class LinkedListDeque <AnyType> {
     }
 
     /** get the item at index i */
-    public AnyType get(int n) {
+    public T get(int n) {
         if (n < size) {
             Node p = sentinel;
             int i = 0;
@@ -94,10 +98,10 @@ public class LinkedListDeque <AnyType> {
     }
 
     /** get the item at index i recursively*/
-    public AnyType get_recur(int n) {
+    public T getRecursive(int n) {
         return get_recur_helper(n, sentinel);
     }
-    private AnyType get_recur_helper(int n, Node p){
+    private T get_recur_helper(int n, Node p){
         if (n == 0) {
             return p.next.item;
         }else{
