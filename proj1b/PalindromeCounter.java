@@ -7,7 +7,7 @@ public class PalindromeCounter {
         int prevMaxCount = 0;
         int maxCount = 0;
 
-        for (int i = 0; i < 26; i ++) {
+        for (int i = 0; i < 26; i++) {
 
             In in = new In("../library-sp18/data/words.txt");
             Palindrome palindrome = new Palindrome();

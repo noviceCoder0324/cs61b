@@ -22,7 +22,7 @@ public class Palindrome {
     /** check if a String is Palindrome iteratively.
      * @param word the string we would like to check.
      * @return true if it is palindrome*/
-    public boolean isPalindromeIter(String word) {
+    private boolean isPalindromeIter(String word) {
         if (word.length() <= 1) {
             return true;
         }
