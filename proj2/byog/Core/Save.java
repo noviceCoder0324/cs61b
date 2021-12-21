@@ -18,16 +18,16 @@ public class Save {
         }
     }
 
-    public static int loadSeed() {
+    public static Long loadSeed() {
         try {
             FileReader save = new FileReader("save.txt");
             BufferedReader bw = new BufferedReader(save);
             String seed = bw.readLine();
             bw.close();
-            return Integer.parseInt(seed);
+            return Long.parseLong(seed);
         } catch(IOException e) {
             e.printStackTrace();
-            return 0;
+            return null;
         }
     }
 }

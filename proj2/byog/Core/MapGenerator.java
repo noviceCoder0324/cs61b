@@ -21,7 +21,7 @@ public class MapGenerator {
     private final Comparator<Room> c = (o1, o2) -> o1.getP().getX() - o2.getP().getX();
 
     /**constructor for the map.*/
-    public MapGenerator(int width, int height, int seed) {
+    public MapGenerator(int width, int height, Long seed) {
         // random seed from outside.
         this.width = width;
         this.height = height;

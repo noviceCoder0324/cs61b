@@ -34,14 +34,14 @@ public class Game {
         char[] chars = input.toCharArray();
         int charsLength = chars.length;
         String seed = "";
-        int sd = 0;
+        Long sd = null;
 
         // create a new game with seed directly, no n.
         if (Character.isDigit(chars[0])) {
             for (char aChar : chars) {
                 if (Character.isDigit(aChar)) {
                     seed += Character.toString(aChar);
-                    sd = Integer.parseInt(seed);
+                    sd = Long.parseLong(seed);
                 } else {
                     break;
                 }
@@ -53,7 +53,7 @@ public class Game {
             for (int i = 1; i < chars.length; i++) {
                 if (Character.isDigit(chars[i])) {
                     seed += Character.toString(chars[i]);
-                    sd = Integer.parseInt(seed);
+                    sd = Long.parseLong(seed);
                 } else {
                     break;
                 }

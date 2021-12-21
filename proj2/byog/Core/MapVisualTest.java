@@ -17,7 +17,7 @@ public class MapVisualTest {
     public static void main(String[] args) {
         ter.initialize(WIDTH, HEIGHT);
 
-        MapGenerator map = new MapGenerator(WIDTH, HEIGHT, 324);
+        MapGenerator map = new MapGenerator(WIDTH, HEIGHT, null);
         TETile[][] world = map.makeMap();
 
         ter.renderFrame(world);
