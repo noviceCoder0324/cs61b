@@ -36,6 +36,17 @@ public class Game {
         String seed = "";
         int sd = 0;
 
+        // create a new game with seed directly, no n.
+        if (Character.isDigit(chars[0])) {
+            for (char aChar : chars) {
+                if (Character.isDigit(aChar)) {
+                    seed += Character.toString(aChar);
+                    sd = Integer.parseInt(seed);
+                } else {
+                    break;
+                }
+            }
+        }
         // create a new game with seed
         if (chars[0] == 'n') {
             // get the seed from the String
