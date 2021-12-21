@@ -14,8 +14,8 @@ public class MapGenerator {
     private final int width;  // the width of the world.
     private final int height; // the height of the world.
     private final TETile[][] world;  // the final world made by seed.
-    private boolean worldUsed[][];  //check if a position is used.
-    private List<Room> rooms = new ArrayList<>();
+    private final boolean[][] worldUsed;  //check if a position is used.
+    private final List<Room> rooms = new ArrayList<>();
     private final static int DENSITY = 100;
 
     private final Comparator<Room> c = (o1, o2) -> o1.getP().getX() - o2.getP().getX();
@@ -33,14 +33,14 @@ public class MapGenerator {
     // make a room in the map
     private void makeRooms() {
         //make a random room
-        int l = RandomUtils.uniform(RANDOM, 1,10);
-        int w = RandomUtils.uniform(RANDOM, 1,10);
+        int l = RandomUtils.uniform(RANDOM, 1, 10);
+        int w = RandomUtils.uniform(RANDOM, 1, 10);
 
-        int x = RandomUtils.uniform(RANDOM, 1,width-2-w);
-        int y = RandomUtils.uniform(RANDOM, 1,height-2-l);
+        int x = RandomUtils.uniform(RANDOM, 1, width - 2 - w);
+        int y = RandomUtils.uniform(RANDOM, 1, height - 2 - l);
         Position p = new Position(x, y);
 
-        Room room = new Room(l,w,p);
+        Room room = new Room(l, w, p);
         //check if it will overlap with any other room
         if (!isOverlapping(room)) {
             //if not, put it in the rooms list
@@ -58,7 +58,7 @@ public class MapGenerator {
         int ty = py + room.getLength();
         for (int i = px; i < tx; i++) {
             for (int j = py; j < ty; j++) {
-                world[i][j] = TETile.colorVariant(Tileset.FLOOR,50,50,50, RANDOM);
+                world[i][j] = TETile.colorVariant(Tileset.FLOOR, 50, 50, 50, RANDOM);
                 worldUsed[i][j] = true;
             }
         }
@@ -83,8 +83,8 @@ public class MapGenerator {
 
     //build the hallway for each room in the list.
     private void makeHallWays() {
-        for (int i = 0; i < rooms.size()-1; i++) {
-            linkTwoPosition(rooms.get(i).getP(), rooms.get(i+1).getP());
+        for (int i = 0; i < rooms.size() - 1; i++) {
+            linkTwoPosition(rooms.get(i).getP(), rooms.get(i + 1).getP());
         }
     }
 
@@ -95,19 +95,19 @@ public class MapGenerator {
         int x2 = p2.getX();
         int y2 = p2.getY();
         while (x1 < x2) {
-            world[x1][y1] = TETile.colorVariant(Tileset.FLOOR,50,50,50, RANDOM);
+            world[x1][y1] = TETile.colorVariant(Tileset.FLOOR, 50, 50, 50, RANDOM);
             worldUsed[x1][y1] = true;
             x1 += 1;
         }
         if (y2 > y1) {
             while (y2 > y1) {
-                world[x1][y1] = TETile.colorVariant(Tileset.FLOOR,50,50,50, RANDOM);
+                world[x1][y1] = TETile.colorVariant(Tileset.FLOOR, 50, 50, 50, RANDOM);
                 worldUsed[x1][y1] = true;
                 y1 += 1;
             }
         } else {
             while (y1 > y2) {
-                world[x1][y1] = TETile.colorVariant(Tileset.FLOOR,50,50,50, RANDOM);
+                world[x1][y1] = TETile.colorVariant(Tileset.FLOOR, 50, 50, 50, RANDOM);
                 worldUsed[x1][y1] = true;
                 y1 -= 1;
             }
@@ -137,11 +137,11 @@ public class MapGenerator {
 
     // make a door for this map
     private void makeADoor() {
-        int numI = RandomUtils.uniform(RANDOM, 2,width/2);
-        int numJ = RandomUtils.uniform(RANDOM, 2,height/2);
+        int numI = RandomUtils.uniform(RANDOM, 2, width / 2);
+        int numJ = RandomUtils.uniform(RANDOM, 2, height / 2);
 
-        for (int i = numI; i < width-2; i++) {
-            for (int j = numJ; j < height-2; j++) {
+        for (int i = numI; i < width - 2; i++) {
+            for (int j = numJ; j < height - 2; j++) {
                 TETile t = world[i][j];
                 if (t.equals(Tileset.WALL) && isNotConor(new Position(i, j))) {
                     world[i][j] = Tileset.LOCKED_DOOR;
@@ -156,7 +156,8 @@ public class MapGenerator {
     private boolean isNotConor(Position position) {
         int px = position.getX();
         int py = position.getY();
-        return worldUsed[px + 1][py] || worldUsed[px - 1][py] || worldUsed[px][py + 1] || worldUsed[px][py - 1];
+        return worldUsed[px + 1][py] || worldUsed[px - 1][py]
+                || worldUsed[px][py + 1] || worldUsed[px][py - 1];
     }
 
 
@@ -164,7 +165,7 @@ public class MapGenerator {
     private void buildWall() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                if (worldUsed[i][j]){
+                if (worldUsed[i][j]) {
                     tileAllAround(new Position(i, j));
                 }
             }
@@ -179,19 +180,19 @@ public class MapGenerator {
         int leftPx = position.getX() - 1;
         int rightPx = position.getX() + 1;
 
-        for (int i = leftPx; i < leftPx+3; i++) {
-            if (!worldUsed[i][lowerPy]){
-                world[i][lowerPy] = TETile.colorVariant(Tileset.WALL,50,50,50, RANDOM);
+        for (int i = leftPx; i < leftPx + 3; i++) {
+            if (!worldUsed[i][lowerPy]) {
+                world[i][lowerPy] = TETile.colorVariant(Tileset.WALL, 50, 50, 50, RANDOM);
             }
-            if (!worldUsed[i][upperPy]){
-                world[i][upperPy] = TETile.colorVariant(Tileset.WALL,50,50,50, RANDOM);
+            if (!worldUsed[i][upperPy]) {
+                world[i][upperPy] = TETile.colorVariant(Tileset.WALL, 50, 50, 50, RANDOM);
             }
         }
-        if (!worldUsed[leftPx][py]){
-            world[leftPx][py] = TETile.colorVariant(Tileset.WALL,50,50,50, RANDOM);
+        if (!worldUsed[leftPx][py]) {
+            world[leftPx][py] = TETile.colorVariant(Tileset.WALL, 50, 50, 50, RANDOM);
         }
-        if (!worldUsed[rightPx][py]){
-            world[rightPx][py] = TETile.colorVariant(Tileset.WALL,50,50,50, RANDOM);
+        if (!worldUsed[rightPx][py]) {
+            world[rightPx][py] = TETile.colorVariant(Tileset.WALL, 50, 50, 50, RANDOM);
         }
     }
 
@@ -210,8 +211,8 @@ public class MapGenerator {
 
     /**fill the map with empty nothing for now.*/
     private void fillWithEmpty() {
-        for (int i = 0; i < width; i++){
-            for (int j = 0; j < height; j++){
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 world[i][j] = Tileset.NOTHING;
             }
         }
