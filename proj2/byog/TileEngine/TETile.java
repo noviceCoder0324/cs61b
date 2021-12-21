@@ -22,6 +22,7 @@ import byog.Core.RandomUtils;
  */
 
 public class TETile {
+    public static TETile colorVariant;
     private final char character; // Do not rename character or the autograder will break.
     private final Color textColor;
     private final Color backgroundColor;

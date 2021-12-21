@@ -31,8 +31,38 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
+        char[] chars = input.toCharArray();
+        int charsLength = chars.length;
+        String seed = "";
+        int sd = 0;
 
-        TETile[][] finalWorldFrame = null;
-        return finalWorldFrame;
+        // create a new game with seed
+        if (chars[0] == 'n') {
+            // get the seed from the String
+            for (int i = 1; i < chars.length; i++) {
+                if (Character.isDigit(chars[i])) {
+                    seed += Character.toString(chars[i]);
+                    sd = Integer.parseInt(seed);
+                } else {
+                    break;
+                }
+            }
+
+            // check if it will need a save.
+            if (chars[charsLength-1] == 'q' && chars[charsLength-2] == ':') {
+                Save.saveSeed(seed);
+            }
+        }
+
+        // load a game from file
+        if (chars[0] == 'l') {
+            sd = Save.loadSeed();
+        }
+
+        // quit the game.
+        //TODO how to do this part?
+
+        MapGenerator map = new MapGenerator(WIDTH, HEIGHT, sd);
+        return map.makeMap();
     }
 }
