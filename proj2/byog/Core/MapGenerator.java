@@ -137,11 +137,11 @@ public class MapGenerator {
 
     // make a door for this map
     private void makeADoor() {
-        int numI = RandomUtils.uniform(RANDOM, 0,width/2);
-        int numJ = RandomUtils.uniform(RANDOM, 0,height/2);
+        int numI = RandomUtils.uniform(RANDOM, 2,width/2);
+        int numJ = RandomUtils.uniform(RANDOM, 2,height/2);
 
-        for (int i = numI; i < width; i++) {
-            for (int j = numJ; j < height; j++) {
+        for (int i = numI; i < width-2; i++) {
+            for (int j = numJ; j < height-2; j++) {
                 TETile t = world[i][j];
                 if (t.equals(Tileset.WALL) && isNotConor(new Position(i, j))) {
                     world[i][j] = Tileset.LOCKED_DOOR;
